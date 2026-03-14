@@ -100,11 +100,11 @@ const SORT_OPTIONS = ["ENDING SOON", "MOST BIDS", "HOTTEST", "NEWEST"];
 
 const initialListings = [
   {id:1,title:"Vintage Leica M6 + 35mm Summicron",cat:"PHYSICAL",seller:"kenji_atl",sellerType:"human",price:1240,topBid:1580,bids:23,watchers:87,timeLeft:312,presale:100,presaleGoal:100,condition:"EX+",featured:true,hot:true,verified:"verified",score:94,tags:["CAMERA","ANALOG"],img:"📷",shipping:"RAPID$ SHIPS",desc:"Near-mint condition. Original box, strap, lens caps. Light meter calibrated 2023.",agentCompatible:true},
-  {id:2,title:"GPT-4 Fine-Tune Dataset — 50K Fashion QA",cat:"DIGITAL",seller:"agent_synth_v2",sellerType:"agent",price:320,topBid:490,bids:41,watchers:134,timeLeft:88,presale:100,presaleGoal:100,condition:"DIGITAL",featured:true,hot:true,verified:"verified",score:99,tags:["AI","DATASET"],img:"🧠",shipping:"INSTANT DL",desc:"Curated 50,000 fashion Q&A pairs. JSONL format. Validated, deduplicated, production-ready.",agentCompatible:true},
+  {id:2,title:"GPT-4 Fine-Tune Dataset — 50K Fashion QA",cat:"DIGITAL",seller:"agent_synth_v2",sellerType:"agent",price:320,topBid:490,bids:41,watchers:134,timeLeft:88,presale:100,presaleGoal:100,condition:"DIGITAL",featured:true,hot:true,verified:"verified",score:99,tags:["AI","DATASET"],img:"/fashion.png",shipping:"INSTANT DL",desc:"Curated 50,000 fashion Q&A pairs. JSONL format. Validated, deduplicated, production-ready.",agentCompatible:true},
   {id:3,title:"Supreme FW23 Box Logo Hoodie — XL",cat:"PHYSICAL",seller:"drip_resell",sellerType:"human",price:480,topBid:510,bids:9,watchers:56,timeLeft:1840,presale:68,presaleGoal:100,condition:"DS",featured:false,hot:false,verified:"scanning",score:null,tags:["STREETWEAR"],img:"👕",shipping:"SELLER SHIPS",desc:"Deadstock, original receipt. Ships from NYC within 24h.",agentCompatible:false},
   {id:4,title:"3x Ethereum Validator Key Export Bundle",cat:"DIGITAL",seller:"0xVault",sellerType:"human",price:2100,topBid:2100,bids:2,watchers:29,timeLeft:5400,presale:40,presaleGoal:80,condition:"DIGITAL",featured:false,hot:false,verified:"flagged",score:42,tags:["CRYPTO","ETH"],img:"🔐",shipping:"SECURE TRANSFER",desc:"Active validators. Includes full withdrawal key export. Presale closes if < 80 engaged.",agentCompatible:true},
-  {id:5,title:"Brutalist Ceramic Lamp — One of One",cat:"PHYSICAL",seller:"studio_haus",sellerType:"human",price:890,topBid:1150,bids:17,watchers:62,timeLeft:720,presale:100,presaleGoal:100,condition:"NEW",featured:true,hot:false,verified:"verified",score:88,tags:["ART","HOME"],img:"🏺",shipping:"RAPID$ SHIPS",desc:"Handcast cement + glaze. Signed underside. Ships insured.",agentCompatible:false},
-  {id:6,title:"Autonomous Sourcing Agent — Licence x12mo",cat:"DIGITAL",seller:"agent_flux_3",sellerType:"agent",price:799,topBid:960,bids:34,watchers:201,timeLeft:199,presale:100,presaleGoal:100,condition:"DIGITAL",featured:true,hot:true,verified:"verified",score:97,tags:["AGENT","SAAS"],img:"⚡",shipping:"API KEY",desc:"Full-stack sourcing agent. Integrates Shopify, Amazon, eBay. 98.2% uptime SLA.",agentCompatible:true},
+  {id:5,title:"Brutalist Ceramic Lamp — One of One",cat:"PHYSICAL",seller:"studio_haus",sellerType:"human",price:890,topBid:1150,bids:17,watchers:62,timeLeft:720,presale:100,presaleGoal:100,condition:"NEW",featured:true,hot:false,verified:"verified",score:88,tags:["ART","HOME"],img:"/lamp.png",shipping:"RAPID$ SHIPS",desc:"Handcast cement + glaze. Signed underside. Ships insured.",agentCompatible:false},
+  {id:6,title:"Autonomous Sourcing Agent — Licence x12mo",cat:"DIGITAL",seller:"agent_flux_3",sellerType:"agent",price:799,topBid:960,bids:34,watchers:201,timeLeft:199,presale:100,presaleGoal:100,condition:"DIGITAL",featured:true,hot:true,verified:"verified",score:97,tags:["AGENT","SAAS"],img:"/agent.png",shipping:"API KEY",desc:"Full-stack sourcing agent. Integrates Shopify, Amazon, eBay. 98.2% uptime SLA.",agentCompatible:true},
 ];
 
 const feedEvents = [
@@ -200,7 +200,11 @@ function ListingCard({ listing, onBid, t }) {
         </div>
 
         <div style={{display:"flex",gap:12,alignItems:"flex-start",marginBottom:10}}>
-          <div style={{fontSize:32,lineHeight:1,flexShrink:0}}>{listing.img}</div>
+          <div style={{fontSize:32,lineHeight:1,flexShrink:0}}>
+            {typeof listing.img === 'string' && listing.img.endsWith('.png') ? (
+              <img src={listing.img} alt={listing.title} style={{width: 60, height: 60, objectFit: "cover", borderRadius: 4, background: t.BG3}} />
+            ) : listing.img}
+          </div>
           <div style={{flex:1,minWidth:0}}>
             <div className="bebas" style={{fontSize:18,letterSpacing:0.5,lineHeight:1.1,marginBottom:3,color:t.TEXT}}>{listing.title}</div>
             <div style={{fontSize:11,color:t.TEXT_MUTED,fontFamily:"DM Mono,monospace"}}>{listing.desc.slice(0,60)}…</div>
